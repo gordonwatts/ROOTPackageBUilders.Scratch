@@ -31,6 +31,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+	<PropertyGroup>
+		<!-- Some test properties to play with below-->
+		<PropYes>true</PropYes>
+		<PropNo>false</PropNo>
+	</PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,7 +52,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<Target Name="EarlyOn" BeforeTargets="ResolveReferences">
+		<!-- This runs very early in the build process -->
+		<Message Text="this build is happening" Importance="high"/>
+	</Target>
+	<Target Name="EarlyOnIfYes" BeforeTargets="ResolveReferences" Condition="$(PropYes)">
+		<Message Text="You should see this message as the if statement should have fired" Importance="high"/>
+	</Target>
+	<Target Name="EarlyOnIfNo" BeforeTargets="ResolveReferences" Condition="$(PropNo)">
+		<Message Text="You should NOT see this message as the if statement should have fired" Importance="high"/>
+	</Target>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
