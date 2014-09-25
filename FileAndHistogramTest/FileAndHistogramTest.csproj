@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3B2381E0-397D-4D43-BE7D-E3F42B1D9BC4}</ProjectGuid>
+    <ProjectGuid>{87696A36-B58D-47A4-9E10-7A1E7DC40A7E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FindInstalledROOTVersion</RootNamespace>
-    <AssemblyName>FindInstalledROOTVersion</AssemblyName>
+    <RootNamespace>FileAndHistogramTest</RootNamespace>
+    <AssemblyName>FileAndHistogramTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,6 +32,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="libCoreWrapper">
+      <HintPath>..\packages\ROOTNET-Dynamic-v5.34.20.win32.vc11.2.7\lib\net40\libCoreWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="libHistWrapper">
+      <HintPath>..\packages\ROOTNET-Core-v5.34.20.win32.vc11.2.7\lib\net40\libHistWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="libMathCoreWrapper">
+      <HintPath>..\packages\ROOTNET-Core-v5.34.20.win32.vc11.2.7\lib\net40\libMathCoreWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="libPhysicsWrapper">
+      <HintPath>..\packages\ROOTNET-Core-v5.34.20.win32.vc11.2.7\lib\net40\libPhysicsWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="libRIOWrapper">
+      <HintPath>..\packages\ROOTNET-Core-v5.34.20.win32.vc11.2.7\lib\net40\libRIOWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="libThreadWrapper">
+      <HintPath>..\packages\ROOTNET-Core-v5.34.20.win32.vc11.2.7\lib\net40\libThreadWrapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,6 +57,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WrapperPlumbingLibrary">
+      <HintPath>..\packages\ROOTNET-Dynamic-v5.34.20.win32.vc11.2.7\lib\net40\WrapperPlumbingLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -46,8 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -55,13 +77,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-	<UsingTask TaskName="GetInstalledROOTVersion" AssemblyFile="..\..\\ROOTPackageBuilders\ROOTMSBuildTasks\bin\Debug\ROOTMSBuildTasks.dll"/>
-	<Target Name="FindROOTVersion" BeforeTargets="ResolveReferences">
-		<GetInstalledROOTVersion>
-			<Output TaskParameter="Version"  PropertyName="ROOTInstalledVersion"/>
-			<Output TaskParameter="ROOTSYS" PropertyName="ROOTSYSValue" />
-		</GetInstalledROOTVersion>
-		<Message Text="The found ROOT version is $(ROOTInstalledVersion)." importance ="high" />
-		<Message Text="And ROOTSYS is $(ROOTSYSValue)." importance ="high" />
-	</Target>
+	<Import Project="ROOT.targets"/>
 </Project>

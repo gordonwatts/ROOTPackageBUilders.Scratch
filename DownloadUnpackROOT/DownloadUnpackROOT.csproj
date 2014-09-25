@@ -57,10 +57,9 @@
   -->
   <UsingTask TaskName="DownloadAndUnpackROOT" AssemblyFile="..\..\\ROOTPackageBuilders\ROOTMSBuildTasks\bin\Debug\ROOTMSBuildTasks.dll" />
   <Target Name="FindROOTVersion" BeforeTargets="ResolveReferences">
-    <DownloadAndUnpackROOT Version="5.24.20" InstallationPath="$(SolutionDir)\root">
-      <Output TaskParameter="ROOTSYS" PropertyName="ROOTSYSPath">
-      </Output>
+    <DownloadAndUnpackROOT Version="5.34.20" InstallationPath="$(SolutionDir)\root" VCVersion="vc11">
+      <Output TaskParameter="ROOTSYS" PropertyName="ROOTSYSPath"/>
     </DownloadAndUnpackROOT>
-    <Message Text="The found ROOT version is $(ROOTSYSPath)." importance="high" />
+    <Message Text="ROOTSYS is $(ROOTSYSPath)." importance="high" />
   </Target>
 </Project>
