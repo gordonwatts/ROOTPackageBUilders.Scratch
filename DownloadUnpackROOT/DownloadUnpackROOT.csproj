@@ -56,10 +56,13 @@
   </Target>
   -->
   <UsingTask TaskName="DownloadAndUnpackROOT" AssemblyFile="..\..\\ROOTPackageBuilders\ROOTMSBuildTasks\bin\Debug\ROOTMSBuildTasks.dll" />
-  <Target Name="FindROOTVersion" BeforeTargets="ResolveReferences">
+	<UsingTask TaskName="SetEnv" AssemblyFile="C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.Build.CppTasks.Common.dll"/>
+	<Target Name="FindROOTVersion" BeforeTargets="ResolveReferences">
     <DownloadAndUnpackROOT Version="5.34.20" InstallationPath="$(SolutionDir)\root" VCVersion="vc11">
       <Output TaskParameter="ROOTSYS" PropertyName="ROOTSYSPath"/>
     </DownloadAndUnpackROOT>
     <Message Text="ROOTSYS is $(ROOTSYSPath)." importance="high" />
+	  <SetEnv Name="ROOTSYS" Value="$(ROOTSYSPath)" Prefix="false" />
+		<SetEnv Name="PATH" Value="$(ROOTSYSPath)\bin" Prefix="true" />
   </Target>
 </Project>

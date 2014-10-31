@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 <!-- The ROOT Build tasks -->
-<UsingTask TaskName="GetInstalledROOTVersion" AssemblyFile="..\..\\ROOTPackageBuilders\ROOTMSBuildTasks\bin\Debug\ROOTMSBuildTasks.dll"/>
-<UsingTask TaskName="DownloadAndUnpackROOT" AssemblyFile="..\..\\ROOTPackageBuilders\ROOTMSBuildTasks\bin\Debug\ROOTMSBuildTasks.dll" />
+<UsingTask TaskName="GetInstalledROOTVersion" AssemblyFile="..\..\tools\net40\ROOTMSBuildTasks.dll"/>
+<UsingTask TaskName="DownloadAndUnpackROOT" AssemblyFile="..\..\tools\net40\ROOTMSBuildTasks.dll" />
 
 <PropertyGroup>
   <ROOTVersion>5.34.20</ROOTVersion>
@@ -13,13 +13,10 @@
 		<Output TaskParameter="Version"  PropertyName="ROOTInstalledVersion"/>
 		<Output TaskParameter="ROOTSYS" PropertyName="ROOTSYSValue" />
 	</GetInstalledROOTVersion>
-	<Message Text="The found ROOT version is $(ROOTInstalledVersion)." importance ="high" />
-	<Message Text="And ROOTSYS is $(ROOTSYSValue)." importance ="high" />
 </Target>
 <Target Name="DownloadAndUnpack" AfterTargets="FindROOTVersion" Condition="$(ROOTInstalledVersion) != $(ROOTVersion)">
   <DownloadAndUnpackROOT Version="$(ROOTVersion)" InstallationPath="$(SolutionDir)\root" VCVersion="vc11">
     <Output TaskParameter="ROOTSYS" PropertyName="ROOTSYSPath"/>
   </DownloadAndUnpackROOT>
-  <Message Text="ROOTSYS is $(ROOTSYSPath)." importance="high" />
 </Target>
 </Project>
